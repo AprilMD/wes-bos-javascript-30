@@ -62,12 +62,54 @@
       background: black;
       position: absolute;
       top: 50%;
+      
+      transform: rotate(90deg); /* set the line to start at 12 oclock, as it defaulted to horizontal */
+      transform-origin:100%; /* will rotate around the middle element without this - it's 50% by default */
+      transition: all 0.05s; /* everything, when transitioning, will transition over this period*/
+      transition-timing-function: cubic-bezier(0.38, 2.34, 0.65, 1.4);
     }
 
   </style>
 
   <script>
+    // all new code:
+    const secondHand = document.querySelector('.second-hand')
+    const minuteHand = document.querySelector('.min-hand')
+    const hourHand = document.querySelector('.hour-hand')
 
+    function setSecondHand() {
+      const now = new Date(); // sets to todays date and time
+      
+      const seconds = now.getSeconds(); // method to get seconds
+      const secondsDegrees = ((seconds / 60) * 360) + 90// (x/60) gives us seconds as a percentage, then x360 makes it degreees of circle
+        // +90 to compensate to make it set to 12 as default (as the seconds will count from default origin)
+      secondHand.style.transform= `rotate(${secondsDegrees}deg)`;
+      console.log(seconds);
+    }
+
+    function setMinuteHand() {
+      const now = new Date(); // sets to todays date and time
+      
+      const minutes = now.getMinutes(); // method to get seconds
+      const minutesDegrees = ((minutes / 60) * 360) + 90// (x/60) gives us seconds as a percentage, then x360 makes it degreees of circle
+        // +90 to compensate to make it set to 12 as default (as the seconds will count from default origin)
+      minuteHand.style.transform= `rotate(${minutesDegrees}deg)`;
+      console.log(minutes);
+    }
+
+    function setHourHand() {
+      const now = new Date(); // sets to todays date and time
+      
+      const hours = now.getHours(); // method to get seconds
+      const hoursDegrees = ((hours / 60) * 360) + 90// (x/60) gives us seconds as a percentage, then x360 makes it degreees of circle
+        // +90 to compensate to make it set to 12 as default (as the seconds will count from default origin)
+      hourHand.style.transform= `rotate(${hoursDegrees}deg)`;
+      console.log(hours);
+    }
+
+    setInterval(setSecondHand, 1000);
+    setInterval(setMinuteHand, 1000);
+    setInterval(setHourHand, 1000);
 
   </script>
 </body>
